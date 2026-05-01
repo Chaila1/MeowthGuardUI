@@ -94,7 +94,7 @@ function App() {
 
             <div className="resultsGrid">
               <div className="dataBox">
-                <p className="dataLabel">Authenticity Score</p>
+                <p className="dataLabel">Verdict</p>
                 <p className={`dataValue ${result.prediction === 'Real' ? 'greenTxt' : 'redTxt'}`}>{result.prediction}</p>
               </div>
             </div>
