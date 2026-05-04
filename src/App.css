@@ -1,117 +1,119 @@
-.appContainer{
+.appContainer {
   @apply min-h-screen flex flex-col items-center py-12 px-4 font-sans;
 }
 
-.header{
+.header {
   @apply text-center mb-12;
 }
 
-.mainTitle{
+.mainTitle {
   @apply text-5xl font-extrabold tracking-tight mb-2 text-darkText;
 }
 
-.highlightText{
+.highlightText {
   @apply text-meowthYellow;
 }
 
-.subtitle{
+.subtitle {
   @apply text-lg opacity-80 text-darkText;
 }
-.mainContent{
+
+.mainContent {
   @apply w-full max-w-xl;
 }
 
-.uploadBox{
-  @apply bg-cardColour rounded-2xl shadow-sm border-2 border-dashed border-gray-300 p-8 text-center transition-all hover:border-meowthYellow mb-6; 
+.uploadBox {
+  @apply bg-cardColour rounded-2xl shadow-sm border-2 border-dashed border-gray-300 p-8 text-center transition-all hover:border-meowthYellow mb-6;
 }
 
-.previewContainer{
+.previewContainer {
   @apply flex flex-col items-center;
 }
 
-.previewImage{
+.previewImage {
   @apply h-64 object-contain rounded-lg mb-4 shadow-md;
 }
 
-.resetBtn{
+.resetBtn {
   @apply text-sm underline opacity-70 mb-4 hover:opacity-100;
 }
 
-.uploadPrompt{
+.uploadPrompt {
   @apply flex flex-col items-center justify-center space-y-4 py-8;
 }
-.icon{
+
+.icon {
   @apply bg-meowthBeige p-4 rounded-full text-meowthYellow;
 }
 
-.uploadTitle{
+.uploadTitle {
   @apply text-xl font-bold text-darkText;
 }
 
-.selectBtn{
+.selectBtn {
   @apply cursor-pointer bg-meowthYellow text-darkText font-bold py-3 px-8 rounded-full shadow hover:bg-yellow-400 transition-colors mt-4 inline-block;
 }
 
-.scanBtn{
+.scanBtn {
   @apply w-full font-bold py-4 rounded-xl shadow-lg transition-all text-lg;
 }
 
-.activeScanBtn{
+.activeScanBtn {
   @apply bg-darkText text-meowthBeige hover:bg-black;
 }
 
-.disableScanBtn{
+.disableScanBtn {
   @apply bg-gray-300 text-gray-500 cursor-not-allowed;
 }
 
-.errorBox{
+.errorBox {
   @apply bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded mt-4;
 }
 
-.resultsCard{
+.resultsCard {
   @apply bg-cardColour rounded-2xl shadow-lg p-6 border-t-4 border-meowthYellow mt-4;
 }
 
-.resultsTitle{
+.resultsTitle {
   @apply text-2xl font-black text-darkText mb-4 border-b pb-2;
 }
 
-.resultsGrid{
+.resultsGrid {
   @apply grid grid-cols-2 gap-4 mb-4;
 }
 
-.dataBox{
+.dataBox {
   @apply bg-meowthBeige p-4 rounded-lg;
 }
 
-.dataLabel{
+.dataLabel {
   @apply text-sm opacity-70 uppercase tracking-wider;
 }
 
-.dataValue{
+.dataValue {
   @apply text-lg font-bold;
 }
 
-.greenTxt{
+.greenTxt {
   @apply text-green-600;
 }
 
-.redTxt{
+.redTxt {
   @apply text-red-600;
 }
 
-.confidence{
+.confidence {
   @apply flex justify-between items-end mb-1;
 }
 
-.trackProgress{
- @apply w-full bg-gray-200 rounded-full h-2.5;
+.trackProgress {
+  @apply w-full bg-gray-200 rounded-full h-2.5;
 }
 
-.fillProgress{
+.fillProgress {
   @apply bg-meowthYellow h-2.5 rounded-full;
 }
 
-.reasoningTxt{
+.reasoningTxt {
   @apply mt-4 text-sm opacity-80 leading-relaxed italic;
 }

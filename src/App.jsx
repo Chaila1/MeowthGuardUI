@@ -18,8 +18,10 @@ function App() {
     }
   }
 
-  const handleScan = async () => {
-    if (!file) return
+  const handleScan = async (e) => {
+    e.preventDefault();
+    if (!file) return;
+
     setLoading(true)
     setError(null)
 
@@ -27,7 +29,7 @@ function App() {
     formData.append('image', file)
 
     try {
-      const response = await fetch('http://localhost:3000/pokeScanner', {
+      const response = await fetch('http://localhost:3001/api/scanner', {
         method: 'POST',
         body: formData,
       })
@@ -37,9 +39,16 @@ function App() {
       if (!response.ok) {
         throw new Error(data.error || "Failed to scan the card")
       }
-      setResult(data.poke_scan)
+
+
+      if (data.success) {
+        setResult(data.ai_analysis)
+      } else {
+        throw new Error(data.error || "Failed to connect to the Meowth Guard AI")
+      }
+
     } catch (err) {
-      setError(err.message)
+      setError(err.message || "Couldn't connect to the Meowth Guard AI")
     } finally {
       setLoading(false)
     }
@@ -95,21 +104,21 @@ function App() {
             <div className="resultsGrid">
               <div className="dataBox">
                 <p className="dataLabel">Verdict</p>
-                <p className={`dataValue ${result.prediction === 'Real' ? 'greenTxt' : 'redTxt'}`}>{result.prediction}</p>
+                <p className={`dataValue uppercase ${result.verdict === 'real' ? 'greenTxt' : 'redTxt'}`}>{result.verdict}</p>
               </div>
             </div>
 
             <div className="dataBox">
               <div className="confidence">
                 <p className="dataLabel">Confidence Score</p>
-                <p className="font-bold">{result.confidenceScore}%</p>
+                <p className="font-bold">{result.verdict === 'real' ? result.conReal : result.conFake}%</p>
               </div>
 
               <div className="trackProgress">
-                <div className="fillProgress" style={{ width: `${result.confidenceScore}%` }}></div>
+                <div className="fillProgress" style={{ width: `${result.verdict === 'real' ? result.conReal : result.conFake}%` }}></div>
               </div>
 
-              <p className="reasoningTxt">"{result.reasoning}"</p>
+              <p className="reasoningTxt">(Real: {result.conReal}% | Fake:{result.conFake}%)</p>
             </div>
           </div>
         )}
