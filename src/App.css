@@ -3,7 +3,7 @@
 }
 
 .header {
-  @apply text-center mb-12;
+  @apply text-center mb-12 relative w-full;
 }
 
 .mainTitle {
@@ -116,4 +116,16 @@
 
 .reasoningTxt {
   @apply mt-4 text-sm opacity-80 leading-relaxed italic;
+}
+
+.inputField {
+  @apply w-full p-4 mb-4 bg-meowthBeige border-2 border-transparent rounded-xl text-darkText transition-all focus:outline-none focus:border-meowthYellow;
+}
+
+.switchLink {
+  @apply mt-6 text-sm opacity-70 cursor-pointer hover:underline hover:opacity-100 block text-darkText;
+}
+
+.logoutBtn {
+  @apply absolute top-0 right-0 bg-darkText text-meowthBeige font-bold py-2 px-4 rounded-lg shadow-md transition-all hover:bg-black hover:scale-105 active:scale-95 cursor-pointer text-sm;
 }

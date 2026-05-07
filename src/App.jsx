@@ -1,129 +1,45 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import Scanner from "./Scanner";
+import Login from "./Login";
 import './App.css'
+import Dashboard from "./Dashboard";
+import Register from "./Register";
 
-function App() {
-  const [file, setFile] = useState(null)
-  const [preview, setPreview] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState(null)
-  const [error, setError] = useState(null)
+function AppFormat() {
+  const navi = useNavigate();
+  const user = localStorage.getItem('MeowthGuardUser');
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0]
-    if (selectedFile) {
-      setFile(selectedFile)
-      setPreview(URL.createObjectURL(selectedFile))
-      setResult(null)
-      setError(null)
-    }
-  }
-
-  const handleScan = async (e) => {
-    e.preventDefault();
-    if (!file) return;
-
-    setLoading(true)
-    setError(null)
-
-    const formData = new FormData()
-    formData.append('image', file)
-
-    try {
-      const response = await fetch('http://localhost:3001/api/scanner', {
-        method: 'POST',
-        body: formData,
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to scan the card")
-      }
-
-
-      if (data.success) {
-        setResult(data.ai_analysis)
-      } else {
-        throw new Error(data.error || "Failed to connect to the Meowth Guard AI")
-      }
-
-    } catch (err) {
-      setError(err.message || "Couldn't connect to the Meowth Guard AI")
-    } finally {
-      setLoading(false)
-    }
-  }
+  const handleLogout = () => {
+    localStorage.clear();
+    navi('/login');
+  };
 
   return (
     <div className="appContainer">
-
       <div className="header">
         <h1 className="mainTitle">Meowth <span className="highlightText">Guard</span></h1>
-        <p className="subtitle">Your AI-Powered Card Authenticator to ward of potential scams</p>
-      </div>
-
-      <div className="mainContent">
-        <div className="uploadBox">
-          {preview ? (
-            <div className="previewContainer">
-              <img src={preview} alt="Card Preview" className="previewImage" />
-              <button onClick={() => { setFile(null); setPreview(null); setResult(null); }} className="resetBtn">Pick a different image</button>
-            </div>
-          ) : (
-            <div className="uploadPrompt">
-              <div className="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-
-              <h3 className="uploadTitle">Click here to upload your image for verification</h3>
-              <label className="selectBtn">Upload Image<input type="file" className="hidden" accept="image/*" onChange={handleFileChange} /> </label>
-            </div>
-          )}
-        </div>
-
-        {file && !result && (
-          <button onClick={handleScan} disabled={loading} className={`scanBtn ${loading ? 'disableScanBtn' : 'activeScanBtn'}`}>
-            {loading ? 'MeowthGuard is analysing your card...' : 'Run Authentication Scan'}
-          </button>
-        )}
-
-        {error && (
-          <div className="errorBox">
-            <p className="font-bold">The Scan Failed</p>
-            <p>{error}</p>
-          </div>
-        )}
-
-        {result && (
-          <div className="resultsCard">
-            <h2 className="resultsTitle">Here are your Scans Results</h2>
-
-            <div className="resultsGrid">
-              <div className="dataBox">
-                <p className="dataLabel">Verdict</p>
-                <p className={`dataValue uppercase ${result.verdict === 'real' ? 'greenTxt' : 'redTxt'}`}>{result.verdict}</p>
-              </div>
-            </div>
-
-            <div className="dataBox">
-              <div className="confidence">
-                <p className="dataLabel">Confidence Score</p>
-                <p className="font-bold">{result.verdict === 'real' ? result.conReal : result.conFake}%</p>
-              </div>
-
-              <div className="trackProgress">
-                <div className="fillProgress" style={{ width: `${result.verdict === 'real' ? result.conReal : result.conFake}%` }}></div>
-              </div>
-
-              <p className="reasoningTxt">(Real: {result.conReal}% | Fake:{result.conFake}%)</p>
-            </div>
-          </div>
+        <p className="subtitle">Your AI Powered Card Authenticator</p>
+        {user && (
+          <button onClick={handleLogout} className="logoutBtn">Logout</button>
         )}
       </div>
+
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/scanner" element={<Scanner />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
+      </Routes>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppFormat />
+    </BrowserRouter>
   )
 }
 
