@@ -21,6 +21,8 @@ function Scanner() {
         e.preventDefault();
         if (!file) return;
 
+        const token = localStorage.getItem('MeowthGuardToken');
+
         setLoading(true)
         setError(null)
 
@@ -30,6 +32,7 @@ function Scanner() {
         try {
             const response = await fetch('http://localhost:3000/pokeScanner', {
                 method: 'POST',
+                headers: {'Authorization': `Bearer ${token}`},
                 body: formData,
             })
 

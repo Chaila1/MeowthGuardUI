@@ -129,3 +129,35 @@
 .logoutBtn {
   @apply absolute top-0 right-0 bg-darkText text-meowthBeige font-bold py-2 px-4 rounded-lg shadow-md transition-all hover:bg-black hover:scale-105 active:scale-95 cursor-pointer text-sm;
 }
+
+.navbar {
+  @apply w-4/5 mx-auto flex items-center justify-between bg-darkText p-4 rounded-2xl shadow-lg mb-8;
+}
+
+.navLinks {
+  @apply flex space-x-6;
+}
+
+.navLink {
+  @apply text-meowthBeige font-bold hover:text-meowthYellow transition-colors cursor-pointer;
+}
+
+.navLogout {
+  @apply text-red-400 font-bold hover:text-red-500 transition-colors cursor-pointer text-sm;
+}
+
+/* Library Specific Styling */
+.libraryItem {
+  @apply relative bg-cardColour rounded-2xl shadow-md p-6 border-l-8 mb-4 transition-transform hover:scale-[1.01];
+}
+
+.realBorder { @apply border-green-500; }
+.fakeBorder { @apply border-red-500; }
+
+.deleteBtn {
+  @apply absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors cursor-pointer;
+}
+
+.emptyState {
+  @apply text-center py-12 bg-meowthBeige rounded-2xl opacity-60 italic;
+}
